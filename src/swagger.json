@@ -1,0 +1,208 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SOLID API",
+        "description": "SOLID API Documentation",
+        "contact": {
+            "email": "ktoxlonian@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/users": {
+            "post":{
+                "tags": ["Users"],
+                "summary": "Create User",
+                "description": "Create a new User",
+                "requestBody":{
+                    "content": {
+                        "application/json" : {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": "string"
+                                },
+                                "example": {
+                                    "name": "Name sample",
+                                    "email": "email@sample.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }, 
+                    "500": {
+                        "description": "User Already Exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "List All Users",
+                "description": "List all users if user_id is admin.",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "header",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "User not found | User is not the admins"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Show one user",
+                "description": "Show one user information",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Success",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "admin": {
+                                                    "type": "boolean"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            }
+                                }
+
+                                }
+                        }
+                    },
+                    "404": {
+                        "description": "User not Found"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch":{
+                "tags": ["Users"],
+                "summary":"Change user to Admin",
+                "description": "Put admin profile to a user",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Success",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "admin": {
+                                                    "type": "boolean"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            }
+                                }
+
+                                }
+                        }
+                    },
+                    "404": {
+                        "description": "User not Found"
+                    }
+                }
+            }
+        }
+    }
+}
